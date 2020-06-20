@@ -1,0 +1,1 @@
+Test project for the recruitment process for backend developer role at Mint Financial Bank, Lagos
