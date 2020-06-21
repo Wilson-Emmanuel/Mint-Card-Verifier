@@ -1,14 +1,11 @@
 package com.mint_digital_bank.card_verification.test_project_card_verification.entities;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "cards")
-@Getter @Setter @NoArgsConstructor
 public class Card {
 
     @Id
@@ -16,7 +13,8 @@ public class Card {
     @Column(name = "id",nullable = false,updatable = false,unique = true)
     private Integer id;
 
-    @Column(length = 8)
+    @Column(length = 16)
+    @JsonIgnore
     private String cardNumber;
 
     @Column
@@ -35,4 +33,45 @@ public class Card {
         this.bank = bank;
     }
 
+    public Card(){}
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public String getScheme() {
+        return scheme;
+    }
+
+    public void setScheme(String scheme) {
+        this.scheme = scheme;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getBank() {
+        return bank;
+    }
+
+    public void setBank(String bank) {
+        this.bank = bank;
+    }
 }
