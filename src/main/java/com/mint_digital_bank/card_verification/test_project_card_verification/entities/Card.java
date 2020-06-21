@@ -1,12 +1,14 @@
 package com.mint_digital_bank.card_verification.test_project_card_verification.entities;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "cards")
-@Data
+@Getter @Setter @NoArgsConstructor
 public class Card {
 
     @Id
