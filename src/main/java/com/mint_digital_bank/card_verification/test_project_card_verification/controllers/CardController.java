@@ -2,6 +2,7 @@ package com.mint_digital_bank.card_verification.test_project_card_verification.c
 
 import com.mint_digital_bank.card_verification.test_project_card_verification.entities.Card;
 import com.mint_digital_bank.card_verification.test_project_card_verification.entities.CardInfo;
+import com.mint_digital_bank.card_verification.test_project_card_verification.enums.MintEnum;
 import com.mint_digital_bank.card_verification.test_project_card_verification.services.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,7 @@ import java.util.Map;
 public class CardController {
 
     @Autowired private CardService cardService;
-    private static final String TOPIC = "com.ng.vela.even.card_verified";
+
     @Autowired private KafkaTemplate<String, Card> kafkaTemplate;
 
     @GetMapping(value = "verify/{card_number}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -40,7 +41,7 @@ public class CardController {
         responsePayload.put("payload",cardInfo.getCard());
 
         //publish the payload on kafka
-        kafkaTemplate.send(TOPIC,cardInfo.getCard());
+        kafkaTemplate.send(MintEnum.TOPIC.getName(),cardInfo.getCard());
         return new ResponseEntity<>(responsePayload, HttpStatus.OK);
     }
 
