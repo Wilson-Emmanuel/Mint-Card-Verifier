@@ -1,8 +1,10 @@
 package com.mint_digital_bank.card_verification.test_project_card_verification.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "cards")
@@ -11,22 +13,29 @@ public class CardInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id",nullable = false,updatable = false,unique = true)
-    private Integer id;
+    private Long id;
 
     @Column(length = 16)
-    @JsonIgnore
     private String cardNumber;
 
-    @Embedded
+    @Column(name = "hit_count")
+    private Integer hitCount = 0;
 
+    @Embedded
     private Card card;
+
+    @Column(name = "verified_at")
+    @CreatedDate
+    @LastModifiedDate
+    private LocalDateTime verifiedAt;
+
     public CardInfo(){}
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -40,6 +49,22 @@ public class CardInfo {
 
     public Card getCard() {
         return card;
+    }
+
+    public Integer getHitCount() {
+        return hitCount;
+    }
+
+    public void setHitCount(Integer hitCount) {
+        this.hitCount = hitCount;
+    }
+
+    public LocalDateTime getVerifiedAt() {
+        return verifiedAt;
+    }
+
+    public void setVerifiedAt(LocalDateTime verifiedAt) {
+        this.verifiedAt = verifiedAt;
     }
 
     public void setCard(Card card) {
