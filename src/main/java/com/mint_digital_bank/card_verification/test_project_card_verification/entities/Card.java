@@ -1,21 +1,10 @@
 package com.mint_digital_bank.card_verification.test_project_card_verification.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "cards")
+@Embeddable
 public class Card {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id",nullable = false,updatable = false,unique = true)
-    private Integer id;
-
-    @Column(length = 16)
-    @JsonIgnore
-    private String cardNumber;
 
     @Column
     private String scheme;
@@ -26,29 +15,13 @@ public class Card {
     @Column
     private String bank;
 
-    public Card(String cardNumber,String scheme, String type, String bank){
-        this.cardNumber = cardNumber;
+    public Card() {
+    }
+
+    public Card(String scheme, String type, String bank) {
         this.scheme = scheme;
         this.type = type;
         this.bank = bank;
-    }
-
-    public Card(){}
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getCardNumber() {
-        return cardNumber;
-    }
-
-    public void setCardNumber(String cardNumber) {
-        this.cardNumber = cardNumber;
     }
 
     public String getScheme() {

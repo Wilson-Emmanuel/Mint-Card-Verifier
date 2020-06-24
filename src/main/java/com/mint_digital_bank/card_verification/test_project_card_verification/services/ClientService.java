@@ -1,6 +1,7 @@
 package com.mint_digital_bank.card_verification.test_project_card_verification.services;
 
 import com.mint_digital_bank.card_verification.test_project_card_verification.entities.Card;
+import com.mint_digital_bank.card_verification.test_project_card_verification.entities.CardInfo;
 import com.mint_digital_bank.card_verification.test_project_card_verification.errors.CardNotFoundException;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
@@ -17,7 +18,7 @@ public class ClientService {
      * @param cardNumber - card number to be verified
      * @return
      */
-    public Card verifyCard(String cardNumber){
+    public CardInfo verifyCard(String cardNumber){
 
         HttpResponse<JsonNode> response = null;
         try{
@@ -46,12 +47,13 @@ public class ClientService {
 
         JSONObject bank = payload.getJSONObject("bank");
         //create the card and save it into the db
+        CardInfo cardInfo = new CardInfo();
         Card card = new Card();
-        card.setCardNumber(cardNumber);
+        cardInfo.setCardNumber(cardNumber);
         card.setBank(bank.optString("name"));
         card.setScheme(payload.optString("scheme"));
         card.setType(payload.optString("type"));
-
-        return card;
+        cardInfo.setCard(card);
+        return cardInfo;
     }
 }
