@@ -1,10 +1,9 @@
 package com.mint_digital_bank.card_verification.test_project_card_verification.entities;
 
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "cards")
@@ -26,8 +25,7 @@ public class CardInfo {
 
     @Column(name = "verified_at")
     @CreatedDate
-    @LastModifiedDate
-    private LocalDateTime verifiedAt;
+    private Date verifiedAt;
 
     public CardInfo(){}
 
@@ -59,11 +57,11 @@ public class CardInfo {
         this.hitCount = hitCount;
     }
 
-    public LocalDateTime getVerifiedAt() {
+    public Date getVerifiedAt() {
         return verifiedAt;
     }
 
-    public void setVerifiedAt(LocalDateTime verifiedAt) {
+    public void setVerifiedAt(Date verifiedAt) {
         this.verifiedAt = verifiedAt;
     }
 

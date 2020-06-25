@@ -12,4 +12,5 @@ public interface CardRepository extends JpaRepository<CardInfo,Integer> {
     CardInfo findByCardNumber(String cardNumber);
 
     Page<CardInfo> findAllByOrderByVerifiedAt(Pageable pageable);
+
 }

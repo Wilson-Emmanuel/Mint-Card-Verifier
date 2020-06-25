@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -26,20 +27,22 @@ public class CardService {
         if(cardInfo ==null)
             cardInfo =clientService.verifyCard(cardNumber);
 
+
         //increment the card hit
         cardInfo.setHitCount(cardInfo.getHitCount()+1);
 
         //save verified card
+        cardInfo.setVerifiedAt(new Date());
        return cardRepository.save(cardInfo);
 
     }
 
     public Map<String,Object> getHitCount(int start, int limit){
 
-        Pageable pageable = PageRequest.of(start,limit);
+        Pageable pageable = PageRequest.of(start-1,limit);
         Page<CardInfo> cardInfos = cardRepository.findAllByOrderByVerifiedAt(pageable);
 
-        int size = cardInfos.getSize();
+        int size = cardInfos.getTotalPages();
         Map<String,Integer> payload = cardInfos.stream().collect(Collectors.toMap(CardInfo::getCardNumber,CardInfo::getHitCount));
 
         Map<String,Object> response = new LinkedHashMap<>();
